@@ -5,10 +5,7 @@ import com.example.demo.repositories.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,13 +22,28 @@ public class FoodController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Food> getFoodById(@PathVariable Long id) {
+    public ResponseEntity<Food> getFoodById(@PathVariable Integer id) {
         Optional<Food> food = foodRepository.findById(id);
 
         if (food.isPresent()) {
             return new ResponseEntity<>(food.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Food> addFood(@RequestBody Food food) {
+        return new ResponseEntity<>(foodRepository.save(food), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFood(@PathVariable Integer id) {
+        if (foodRepository.existsById(id)) {
+            foodRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

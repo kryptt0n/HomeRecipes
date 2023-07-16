@@ -5,24 +5,23 @@ import jakarta.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Food {
-
+public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "food_id")
-    private Long id;
+    Integer id;
 
-    private String name;
+    @Column(length = 100)
+    String name;
 
-    public Food() {
-    }
-
-    public Food(Long id, String name) {
+    public Dish(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public Dish() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -30,7 +29,7 @@ public class Food {
         return name;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,7 +39,7 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" +
+        return "Dish{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
