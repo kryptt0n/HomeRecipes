@@ -4,29 +4,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "food_in_dish")
+@Table(name = "product_in_dish")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class FoodInDish {
+public class ProductInDish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @OneToOne(targetEntity = Dish.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "dish_id")
+    @JoinColumn(name = "dish")
     Dish dish;
 
-    @OneToOne(targetEntity = Food.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id")
+    @OneToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product")
     Food food;
 
-    public FoodInDish(Integer id, Dish dish, Food food) {
+    public ProductInDish(Integer id, Dish dish, Food food) {
         this.id = id;
         this.dish = dish;
         this.food = food;
     }
 
-    public FoodInDish() {
+    public ProductInDish() {
     }
 
     public Integer getId() {

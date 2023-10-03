@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Dish;
 import com.example.demo.entities.Food;
-import com.example.demo.entities.FoodInDish;
+import com.example.demo.entities.ProductInDish;
 import com.example.demo.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +38,8 @@ public class DishController {
     public ResponseEntity<List<Food>> allFoodInDish(@PathVariable Integer id) {
         Optional<Dish> dish = dishRepository.findById(id);
         if (dish.isPresent()) {
-            List<FoodInDish> allFoodInDish = dishRepository.findFoodForDish(dish.get());
-            List<Food> allFood = allFoodInDish.stream().map(FoodInDish::getFood).toList();
+            List<ProductInDish> allFoodInDish = dishRepository.findFoodForDish(dish.get());
+            List<Food> allFood = allFoodInDish.stream().map(ProductInDish::getFood).toList();
             return new ResponseEntity<>(allFood, HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();
